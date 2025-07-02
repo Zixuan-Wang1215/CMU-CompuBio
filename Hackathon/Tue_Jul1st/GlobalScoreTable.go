@@ -1,30 +1,41 @@
 package main
 
+func InitializeMatrix(mtx [][]float64, gap float64) [][]float64 {
+	for row := 1; row < len(mtx); row++ {
+		mtx[row][0] = float64(row) * gap
+	}
+
+	for col := 1; col < len(mtx[0]); col++ {
+		mtx[0][col] = float64(col) * gap
+	}
+	return mtx
+}
+
 func GlobalScoreTable(str1, str2 string, match, mismatch, gap float64) [][]float64 {
-	matrix := Make2D_2[float64](len(str1)+1, len(str2)+1)
 
+	matrix := InitializeMatrix(Make2D_2[float64](len(str1)+1, len(str2)+1), gap*-1) //str1 is the col indicies, and str2 is the row indicies
 
-	for i := range len(str1) {
-		if i == 0 {
-			//continue 
+	//fmt.Println("LCS Matrix", matrix)
+
+	// for each cell in the matrix, check first if the two letters are equal to eachother, then add one to
+	// the value of the cell, if they are not the same, then take the bigger of the two adjacent cells
+
+	//i is the col
+	//j is the row
+
+	for i := 1; i < len(str1)+1; i++ {
+		for j := 1; j < len(str2)+1; j++ {
+			if str1[i-1] == str2[j-1] {
+				//this checked of there is an alignment match
+				matrix[i][j] = matrix[i-1][j-1] + match
+				continue
+			}
+			//this is the second case which takes the largest of the two previous
+			matrix[i][j] = max(matrix[i][j-1]-gap, matrix[i-1][j]-gap, matrix[i-1][j-1]-mismatch)
+
 		}
-		for j := 1; j < len(str2); j++ {
-			//CASE 1 --> matches
-			maxInt(matrix[i-1][j-1]+mew, matrix[])
-			//CASE 2 --> mismatches
+		//fmt.Println(matrix[i])
 	}
 
 	return matrix
-}
-}
-
-func maxInt(ints...int) int {
-	max := 0
-	for i, val := range ints {
-		if i == 0 || val > max {
-			max = val
-		}
-	}
-
-	return val
 }
