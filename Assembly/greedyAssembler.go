@@ -58,16 +58,9 @@ func RemoveRead(reads []string, read string) []string {
 
 // I love this
 func HasSuffix(read string, genome string, len int) bool {
-	if read[1:] == genome[0:(len-1)] {
-		return true
-	}
-	return false
+	return read[1:] == genome[0:(len-1)]
 }
 
 func HasPrefix(read string, genome string, len_genome int, len_read int) bool {
-	if read[:len_read-1] == genome[len_genome-len_read+1:] {
-		return true
-	}
-
-	return false
+	return read[:len_read-1] == genome[len_genome-len_read+1:]
 }

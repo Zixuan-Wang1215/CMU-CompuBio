@@ -1,31 +1,41 @@
 package main
 
-// BinarizeMatrix takes a matrix of values and a threshold.
-// It binarizes the matrix accordin g to the threshold.
-// If entries across main diagonal are both above threshold, only retain the bigger one.
-func BinarizeMatrix(mtx [][]float64, threshold float64) [][]int {
+// Please do not remove package declarations because these are used by the autograder. If you need additional packages, then you may declare them above.
 
-	int_mtx := Make2D_2[int]()
+// Insert your BinarizeMatrix() function here, along with any subroutines that you need.
+func BinarizeMatrix(mtx [][]float64, threshold float64) [][]int {
+	matrix := Make2D_2[int](len(mtx), len(mtx[0]))
 
 	for i := 0; i < len(mtx); i++ {
 		for j := 0; j < len(mtx[0]); j++ {
-			if mtx[i][j] >= threshold && mtx[j][i] >= threshold {
-				max_val := max(mtx[i][j], mtx[j][i])
+			if mtx[i][j] >= threshold {
 
-				if max_val >= threshold {
-					mtx[i][j] = 1
-				} else {
-					mtx[i][j] = 0
-				}
+				matrix[i][j] = 1
 			} else {
-				if mtx[i][j] >= threshold {
-					mtx[i][j] = 1
+				matrix[i][j] = 0
+			}
+
+		}
+
+	}
+	for i := 0; i < len(mtx); i++ {
+		for j := 0; j < len(mtx[0]); j++ {
+			if matrix[i][j] == 1 {
+				if (mtx[i][j] >= threshold && (mtx[i][j] > mtx[j][i])) || (mtx[i][j] > threshold && mtx[i][j] == mtx[j][i] && i < j) {
+					/**
+					if i == 2 && j == 0 {
+
+						fmt.Println(mtx[i][j] >= threshold && mtx[i][j] > mtx[j][i])
+						fmt.Println(mtx[i][j], mtx[j][i])
+						fmt.Println(mtx[i][j] > threshold && mtx[i][j] == mtx[j][i] && i < j)
+
+					}**/
+					matrix[i][j] = 1
 				} else {
-					mtx[i][j] = 0
+					matrix[i][j] = 0
 				}
 			}
 		}
 	}
-
-	return mtx
+	return matrix
 }
