@@ -1,15 +1,5 @@
 package main
 
-func InitializeMatrix(numRows int, numCols int) [][]int {
-	mtx := make([][]int, numRows)
-
-	for i := 0; i < numRows; i++ {
-		mtx[i] = make([]int, numCols)
-	}
-
-	return mtx
-}
-
 // Min takes an arbitrary number of integers and returns their minimum.
 func Min(nums ...int) int {
 	if len(nums) == 0 {
