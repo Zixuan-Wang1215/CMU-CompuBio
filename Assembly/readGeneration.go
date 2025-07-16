@@ -7,7 +7,7 @@ import "math/rand"
 // where a given position is sampled with the given probability.
 func SimulateReadsClean(genome string, readLength int, probability float64) []string {
 
-	kmers := make([]string, 0)
+	kmers := make([]string, 0, len(genome)-readLength+1)
 
 	for i := 0; i < len(genome)-readLength+1; i++ {
 		if rand.Float64() <= probability {
